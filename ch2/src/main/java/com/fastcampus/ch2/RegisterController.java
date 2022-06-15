@@ -4,16 +4,15 @@ import java.net.URLEncoder;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
-//	@RequestMapping(value = "/register/save", method = { RequestMethod.GET, RequestMethod.POST })
-//	@RequsetMapping("/register/add") // 신규 회원 가입 화면
-	@GetMapping("/add")
+	@RequestMapping(value = "/register/add", method = { RequestMethod.GET, RequestMethod.POST })
+//	@GetMapping("/add")
 	public String register() {
 		return "registerForm"; // WEB-INF/views/registerForm.jsp
 	}
@@ -23,7 +22,7 @@ public class RegisterController {
 	public String save(User user, Model m) throws Exception {
 		// 1. 유효성 검사
 		if (!isValid(user)) {
-			String msg = URLEncoder.encode("id를 잘못 입력 하였습니다.", "utf-8");
+			String msg = URLEncoder.encode("id를 잘못 입력 하였습니다.", "utf-8"); 
 			
 			m.addAttribute("msg", msg);		// 모델에 담아서 넘기는 방법.
 			return "redirect://register/add";	// redirect : 재요청
