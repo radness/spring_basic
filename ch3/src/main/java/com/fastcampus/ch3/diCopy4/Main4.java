@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -31,9 +33,9 @@ public class Main4 {
 // 클래스들을 자바 Bean으로 등록
 @Component
 class Car {
-	@Autowired
+	@Resource
 	Engine engine;
-	@Autowired
+	@Resource
 	Door door;
 
 	@Override
@@ -67,17 +69,36 @@ class AppContext {
 		map = new HashMap();
 		doComponentScan();
 		doAutowired();
+		doResource();
 	}
 
-	private void doAutowired() {
-		/* map에 저장된 객체의 iv(instance variable)중에 @Autowired가 붙어 있으면
-		 * map에서 iv의 타입에 맞는 객체를 찾아서 연결(객체의 주소를 iv에 저장)
-		*/
+	private void doResource() {
+		/*
+		 * map에 저장된 객체의 iv(instance variable)중에 @Resource가 붙어 있으면
+		 * map에서 iv의 이름에 맞는 객체를 찾아서 연결(객체의 주소를 iv에 저장)
+		 */
 		try {
 			for (Object bean : map.values()) {
 				for (Field field : bean.getClass().getDeclaredFields()) {
-					if (field.getAnnotation(Autowired.class) != null)	// byType
-						field.set(bean, getBean(field.getName()));	// car.engine = obj;
+					if (field.getAnnotation(Resource.class) != null) // byName
+						field.set(bean, getBean(field.getName())); // car.engine = obj;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void doAutowired() {
+		/*
+		 * map에 저장된 객체의 iv(instance variable)중에 @Autowired가 붙어 있으면
+		 * map에서 iv의 타입에 맞는 객체를 찾아서 연결(객체의 주소를 iv에 저장)
+		 */
+		try {
+			for (Object bean : map.values()) {
+				for (Field field : bean.getClass().getDeclaredFields()) {
+					if (field.getAnnotation(Autowired.class) != null) // byType
+						field.set(bean, getBean(field.getType())); // car.engine = obj;
 				}
 			}
 		} catch (Exception e) {
