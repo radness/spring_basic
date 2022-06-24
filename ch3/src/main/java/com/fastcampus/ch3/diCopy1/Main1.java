@@ -28,7 +28,7 @@ public class Main1 {
 		Properties p = new Properties();
 		p.load(new FileReader("config.txt"));
 
-		Class clazz = Class.forName(p.getProperty(key));
+		Class clazz = Class.forName(p.getProperty(key)); 
 
 		return clazz.newInstance();
 	}
