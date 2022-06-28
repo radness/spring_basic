@@ -1,7 +1,6 @@
 package com.fastcampus.ch3;
 
 import static org.junit.Assert.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
