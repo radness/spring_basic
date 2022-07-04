@@ -20,7 +20,9 @@ public class TxService {
 	}
 	
 	// @Transactional	// RuntimeException, Error 만 rollback 한다.
-	@Transactional(rollbackFor = Exception.class)	// Exception을 rollback한다.
+	// @Transactional(propagation = Propagation.REQUIRED) -> default
+	// @Transactional(propagation = Propagation.REQUIRES_NEW)	// 새로운 Tx 생성
+	@Transactional(rollbackFor = Exception.class)	// Exception을 rollback한다. 
 	public void insertA1WithTxFail() throws Exception {
 		a1Dao.insert(1, 100);
 		a1Dao.insert(1, 200);
