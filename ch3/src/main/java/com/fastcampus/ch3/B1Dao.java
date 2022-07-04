@@ -11,7 +11,7 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class A1Dao {
+public class B1Dao {
 	@Autowired
 	DataSource ds;
 
@@ -22,7 +22,7 @@ public class A1Dao {
 		try {
 //			conn = ds.getConnection();
 			conn = DataSourceUtils.getConnection(ds);
-			pstmt = conn.prepareStatement("insert into a1 values(? ,?)");
+			pstmt = conn.prepareStatement("insert into b1 values(? ,?)");
 			pstmt.setInt(1, key);
 			pstmt.setInt(2, value);
 
@@ -51,11 +51,11 @@ public class A1Dao {
 	public void deleteAll() throws Exception {
 		Connection conn = DataSourceUtils.getConnection(ds);
 
-		String sql = "delete from a1";
+		String sql = "delete from b1";
 
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 
-		pstmt.executeUpdate();
+		pstmt.execute();
 		close(pstmt);
 	}
 }
