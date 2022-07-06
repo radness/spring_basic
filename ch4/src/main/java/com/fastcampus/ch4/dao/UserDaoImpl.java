@@ -1,16 +1,16 @@
 package com.fastcampus.ch4.dao;
 
-import com.fastcampus.ch4.domain.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.fastcampus.ch4.domain.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {
