@@ -1,1 +1,8 @@
 /.metadata/
+test1.txt
+
+# 다음과 같은 확장자는 전체 무시
+.class
+
+#폴더 무시
+test/
